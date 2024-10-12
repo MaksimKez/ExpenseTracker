@@ -1,3 +1,6 @@
+using ExpenseTracker.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace ExpenseTracker;
 
 public class Program
@@ -6,7 +9,10 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        
+        builder.Services.AddDbContext<ApplicationDbContext>(x =>
+        {
+            x.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+        });
         
         builder.Services.AddAuthorization();
 
