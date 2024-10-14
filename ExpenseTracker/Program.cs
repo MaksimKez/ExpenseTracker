@@ -11,7 +11,7 @@ public class Program
 
         builder.Services.AddDbContext<ApplicationDbContext>(x =>
         {
-            x.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+            x.UseNpgsql(builder.Configuration.GetConnectionString("ExpenseTrackerDb"));
         });
         
         builder.Services.AddAuthorization();
