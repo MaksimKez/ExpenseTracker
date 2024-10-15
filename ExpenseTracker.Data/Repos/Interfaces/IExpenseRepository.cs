@@ -7,6 +7,6 @@ namespace ExpenseTracker.Data.Repos.Interfaces
         Task<Guid> CreateAsync(ExpenseEntity expenseEntity);
         Task<bool> DeleteAsync(Guid id); 
         ExpenseEntity? GetById(Guid id);
-        Task<ExpenseEntity?> GetAllByBankAccountIdAsync(Guid bankAccountId);
+        IEnumerable<ExpenseEntity> GetAllByBankAccountId(Guid bankAccountId);
     }
 }

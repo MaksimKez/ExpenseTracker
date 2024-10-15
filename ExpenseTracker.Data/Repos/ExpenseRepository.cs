@@ -56,9 +56,9 @@ public class ExpenseRepository : IExpenseRepository
     /// </summary>
     /// <param name="bankAccountId">The id of the bank account to retrieve the expense from.</param>
     /// <returns>The expense with the given bank account id, or null if no such expense exists.</returns>
-    public async Task<ExpenseEntity?> GetAllByBankAccountIdAsync(Guid bankAccountId)
+    public IEnumerable<ExpenseEntity> GetAllByBankAccountId(Guid bankAccountId)
     {
-        var expenseEntity = await _context.Expenses.FirstOrDefaultAsync(e => e.BankAccountId == bankAccountId);
+        var expenseEntity = _context.Expenses.Where(e => e.BankAccountId == bankAccountId).ToList();
         return expenseEntity;
     }
     
