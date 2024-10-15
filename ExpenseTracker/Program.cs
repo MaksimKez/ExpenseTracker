@@ -19,6 +19,7 @@ public class Program
         builder.Services.AddScoped<IBankAccountRepository, BankAccountRepository>();
         builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
         builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
         
         builder.Services.AddAuthorization();
 
