@@ -13,11 +13,6 @@ public class ExpenseRepository : IExpenseRepository
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
     
-    /// <summary>
-    /// Creates a new expense.
-    /// </summary>
-    /// <param name="expenseEntity">The expense to create.</param>
-    /// <returns>The id of the newly created expense.</returns>
     public async Task<Guid> CreateAsync(ExpenseEntity expenseEntity)
     {
         await _context.Expenses.AddAsync(expenseEntity);
@@ -25,11 +20,6 @@ public class ExpenseRepository : IExpenseRepository
         return expenseEntity.Id;
     }
     
-    /// <summary>
-    /// Deletes an expense.
-    /// </summary>
-    /// <param name="id">The id of the expense to delete.</param>
-    /// <returns>A task representing the asynchronous operation, returning true if the expense was deleted, false if it was not found.</returns>
     public async Task<bool> DeleteAsync(Guid id)
     {
         var expenseEntity = await _context.Expenses.FindAsync(id);
@@ -40,22 +30,12 @@ public class ExpenseRepository : IExpenseRepository
         return true;
     }
     
-    /// <summary>
-    /// Gets an expense by its id.
-    /// </summary>
-    /// <param name="id">The id of the expense to retrieve.</param>
-    /// <returns>The expense with the given id, or null if no such expense exists.</returns>
-    public ExpenseEntity? GetById(Guid id)
+    public async Task<ExpenseEntity?> GetByIdAsync(Guid id)
     {
-        var expenseEntity = _context.Expenses.FirstOrDefault(e => e.Id == id);
+        var expenseEntity = await _context.Expenses.FindAsync(id);
         return expenseEntity;
     }
     
-    /// <summary>
-    /// Gets the expense with the given bank account id.
-    /// </summary>
-    /// <param name="bankAccountId">The id of the bank account to retrieve the expense from.</param>
-    /// <returns>The expense with the given bank account id, or null if no such expense exists.</returns>
     public IEnumerable<ExpenseEntity> GetAllByBankAccountId(Guid bankAccountId)
     {
         var expenseEntity = _context.Expenses.Where(e => e.BankAccountId == bankAccountId).ToList();
