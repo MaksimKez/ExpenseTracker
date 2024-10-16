@@ -49,9 +49,10 @@ public class UserRepository : IUserRepository
     /// </summary>
     /// <param name="userId">The id of the user to retrieve the bank account id for.</param>
     /// <returns>The bank account id of the user with the given id, or null if no such user exists.</returns>
-    public Guid? GetBankAccountId(Guid userId)
+    public Guid GetBankAccountId(Guid userId)
     {
         var userEntity = _context.Users.FirstOrDefault(u => u.Id == userId);
-        return userEntity?.BankAccountId;
+        if (userEntity == null) return Guid.Empty;
+        return userEntity.BankAccountId;
     }
 }
