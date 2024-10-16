@@ -5,6 +5,8 @@ using ExpenseTracker.Data.Repos.Interfaces;
 using ExpenseTracker.Mappers;
 using ExpenseTracker.Mappers.Interface;
 using ExpenseTracker.Models;
+using ExpenseTracker.Services;
+using ExpenseTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTracker;
@@ -29,6 +31,11 @@ public class Program
         builder.Services.AddScoped<IMapper<Expense, ExpenseEntity>, ExpenseMapper>();
         builder.Services.AddScoped<IMapper<Income, IncomeEntity>, IncomeMapper>();
         builder.Services.AddScoped<IMapper<BankAccount, BankAccountEntity>, BankAccountMapper>();
+
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IBankAccountService, BankAccountService>();
+        builder.Services.AddScoped<IExpenseService, ExpenseService>();
+        builder.Services.AddScoped<IIncomeService, IncomeService>();
         
         
         builder.Services.AddAuthorization();
