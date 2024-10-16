@@ -30,6 +30,12 @@ public class IncomeRepository : IIncomeRepository
         return true;
     }
 
+    public async Task<IncomeEntity?> GetByIdAsync(Guid id)
+    {
+        var incomeEntity = await _context.Incomes.FindAsync(id);
+        return incomeEntity;
+    }
+
     public IEnumerable<IncomeEntity> GetAllByBankAccountId(Guid bankAccountId)
     {
         var expenseEntity = _context.Incomes.Where(e => e.BankAccountId == bankAccountId).ToList();

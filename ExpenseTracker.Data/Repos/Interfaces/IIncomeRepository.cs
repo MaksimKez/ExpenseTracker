@@ -6,6 +6,7 @@ namespace ExpenseTracker.Data.Repos.Interfaces
     {
         Task<Guid> CreateAsync(IncomeEntity incomeEntity);
         Task<bool> DeleteAsync(Guid id);
+        Task<IncomeEntity?> GetByIdAsync(Guid id);
         IEnumerable<IncomeEntity> GetAllByBankAccountId(Guid bankAccountId);
     }
 }
