@@ -20,7 +20,7 @@ public class BankAccountService : IBankAccountService
     private bool IsValidBankAccount(BankAccount? bankAccount)
     {
         if (bankAccount == null) return false;
-        return bankAccount.Balance > 0;
+        return bankAccount.Balance >= 0;
     }
     
     public async Task<Guid> CreateBankAccountAsync(BankAccount bankAccount)

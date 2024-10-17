@@ -5,7 +5,7 @@ namespace ExpenseTracker.Services.Interfaces;
 
 public interface IUserService
 {
-    Task<Guid> RegisterUserAsync(string username, string password);
+    Task<Guid> RegisterUserAsync(string username, string password, Guid bankAccountId);
     Guid Login(string username, string password);
     User? GetUserById(Guid userId);
 }

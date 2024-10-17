@@ -4,6 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseTracker.Controllers;
 
+public class RegisterUserDto
+{
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public Guid BankAccountId { get; set; }
+}
+
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -14,13 +21,13 @@ public class UserController : ControllerBase
     }
     
     [HttpPost("register/user")]
-    public async Task<ActionResult<Guid>> RegisterUserAsync([FromBody]string username, [FromBody] string password)
+    public async Task<ActionResult<Guid>> RegisterUserAsync([FromBody] RegisterUserDto registerUserDto)
     {
-        var id = await _userService.RegisterUserAsync(username, password);
+        var id = await _userService.RegisterUserAsync(registerUserDto.Username, registerUserDto.Password, registerUserDto.BankAccountId);
         if (id.Equals(Guid.Empty))
             return BadRequest();
-        
-        return Created(nameof(GetUserById), id);
+    
+        return CreatedAtAction(nameof(GetUserById), new { id }, id);
     }
 
     [HttpGet("login/user")]

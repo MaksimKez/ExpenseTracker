@@ -4,7 +4,7 @@ namespace ExpenseTracker.Data.Repos.Interfaces;
 
 public interface IUserRepository
 {
-    Task<Guid> RegisterAsync(string username, string password);
+    Task<Guid> RegisterAsync(string username, string password, Guid bankAccountId);
     Guid Login(string username, string password);
     UserEntity? GetUserById(Guid userId);
 }

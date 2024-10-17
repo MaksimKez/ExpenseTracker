@@ -102,9 +102,13 @@ public class TransactionsController : ControllerBase
     #region CRUD on BankAccount
 
     [HttpPost("create/bankaccount")]
-    public async Task<ActionResult<Guid>> CreateBankAccount([FromBody]BankAccount bankAccount)
+    public async Task<ActionResult<Guid>> CreateBankAccount()
     {
-        var bankAccountId = await _transactionsFacade.CreateBankAccountAsync(bankAccount);
+        var bankAccountId = await _transactionsFacade.CreateBankAccountAsync(new BankAccount
+        {
+            Balance = 0,
+            Id = Guid.NewGuid()
+        });
         return bankAccountId.Equals(Guid.Empty) ? NotFound() : Created(nameof(GetBankAccountById), bankAccountId);
     }
 
