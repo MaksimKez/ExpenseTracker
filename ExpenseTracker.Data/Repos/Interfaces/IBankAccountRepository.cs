@@ -48,4 +48,7 @@ public interface IBankAccountRepository
     /// <param name="bankAccountId">The id of the bank account to add the expense to.</param>
     /// <returns>A task representing the asynchronous operation, returning a boolean indicating whether the account was found.</returns>
     Task<bool>  AddExpenseToHistoryAsync(decimal value, Guid bankAccountId);
+
+    Task<bool> DeleteIncomeFromHistoryAsync(Guid id, Guid bankAccountId);
+    Task<bool> DeleteExpenseFromHistoryAsync(Guid id, Guid bankAccountId);
 }

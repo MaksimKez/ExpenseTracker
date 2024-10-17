@@ -63,5 +63,30 @@ public class BankAccountRepository : IBankAccountRepository
         await _context.SaveChangesAsync();
         return true;
     }
-    
+
+    public async Task<bool> DeleteIncomeFromHistoryAsync(Guid id, Guid bankAccountId)
+    {
+        var account = _context.BankAccounts.FirstOrDefault(b => b.Id == bankAccountId);
+        var income = _context.Incomes.FirstOrDefault(i => i.Id == id);
+        if (account == null || income == null) return false;
+        
+        account.Balance -= income.Sum;
+        
+        _context.BankAccounts.Update(account);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> DeleteExpenseFromHistoryAsync(Guid id, Guid bankAccountId)
+    {
+        var account = _context.BankAccounts.FirstOrDefault(b => b.Id == bankAccountId);
+        var income = _context.Incomes.FirstOrDefault(i => i.Id == id);
+        if (account == null || income == null) return false;
+        
+        account.Balance += income.Sum;
+        
+        _context.BankAccounts.Update(account);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

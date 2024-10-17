@@ -37,6 +37,8 @@ public class Program
         builder.Services.AddScoped<IExpenseService, ExpenseService>();
         builder.Services.AddScoped<IIncomeService, IncomeService>();
         
+        builder.Services.AddScoped<ITransactionsFacade, TransactionsFacade>();
+        
         
         builder.Services.AddAuthorization();
 

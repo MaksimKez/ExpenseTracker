@@ -80,4 +80,14 @@ public class BankAccountService : IBankAccountService
         
         return await _repository.AddExpenseToHistoryAsync(value, bankAccountId);
     }
+
+    public async Task<bool> DeleteIncomeFromHistoryAsync(Guid id, Guid bankAccountId)
+    {
+        return await _repository.DeleteIncomeFromHistoryAsync(id, bankAccountId);
+    }
+
+    public async Task<bool> DeleteExpenseFromHistoryAsync(Guid id, Guid bankAccountId)
+    {
+        return await _repository.DeleteExpenseFromHistoryAsync(id, bankAccountId);
+    }
 }

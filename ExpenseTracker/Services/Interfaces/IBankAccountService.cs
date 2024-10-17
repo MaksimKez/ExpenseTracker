@@ -53,4 +53,9 @@ public interface IBankAccountService
     /// <param name="value">The value of the expense.</param>
     /// <returns>A boolean indicating whether the expense was added successfully.</returns>
     Task<bool> AddExpenseToHistoryAsync(Guid bankAccountId, decimal value);
+
+    Task<bool> DeleteIncomeFromHistoryAsync(Guid id, Guid bankAccountId);
+    
+    Task<bool> DeleteExpenseFromHistoryAsync(Guid id, Guid bankAccountId);
+
 }
