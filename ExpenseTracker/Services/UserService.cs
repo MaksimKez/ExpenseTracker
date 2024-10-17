@@ -28,16 +28,19 @@ public class UserService : IUserService
         return await _repository.RegisterAsync(username, password);
     }
     
-    public bool Login(string username, string password)
+    public Guid Login(string username, string password)
     {
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
-            return false;
+            return Guid.Empty;
         }
         
         return _repository.Login(username, password);
     }
     
-    public Guid GetBankAccountId(Guid userId) =>
-        userId.Equals(Guid.Empty) ? Guid.Empty : _repository.GetBankAccountId(userId);
+    public User? GetUserById(Guid userId)
+    {
+        var entity = _repository.GetUserById(userId);
+        return entity == null ? null : _mapper.MapToModel(entity);
+    }
 }

@@ -37,13 +37,19 @@ public class UserRepository : IUserRepository
     /// </summary>
     /// <param name="username">The username of the user to log in.</param>
     /// <param name="password">The password of the user to log in.</param>
-    /// <returns>A boolean indicating whether the user was found.</returns>
-    public bool Login(string username, string password)
+    /// <returns>BankAccount id.</returns>
+    public Guid Login(string username, string password)
     {
         var userEntity = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
-        return userEntity != null;
+        return userEntity?.BankAccountId ?? Guid.Empty;
     }
-    
+
+    public UserEntity? GetUserById(Guid userId)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+        return user ?? null;
+    }
+
     /// <summary>
     /// Gets the bank account id of the user with the given id.
     /// </summary>
