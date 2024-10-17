@@ -79,11 +79,6 @@ public class TransactionsFacade : ITransactionsFacade
         
         return await _expenseService.DeleteExpenseAsync(id);
     }
-    
-    public async Task<bool> DeleteExpenseAsync(Guid id)
-    {
-        return await _expenseService.DeleteExpenseAsync(id);
-    }
     #endregion
 
     #region get income/expense by id

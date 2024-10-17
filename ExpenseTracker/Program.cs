@@ -39,6 +39,8 @@ public class Program
         
         builder.Services.AddScoped<ITransactionsFacade, TransactionsFacade>();
         
+        builder.Services.AddControllers();
+        
         
         builder.Services.AddAuthorization();
 

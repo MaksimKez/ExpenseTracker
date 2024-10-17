@@ -12,7 +12,6 @@ public interface ITransactionsFacade
     Task<Guid> AddExpenseThenAddToHistoryAsync(Guid bankAccountId, Expense expense);
     Task<bool> DeleteIncomeAsyncThenDeleteFromHistoryAsync(Guid id, Guid bankAccountId);
     Task<bool> DeleteExpenseAsyncThenDeleteFromHistoryAsync(Guid id, Guid bankAccountId);
-    Task<bool> DeleteExpenseAsync(Guid id);
     Task<Income?> GetIncomeByIdAsync(Guid id);
     Task<Expense?> GetExpenseByIdAsync(Guid id);
     List<Income> GetIncomesByBankAccountId(Guid bankAccountId);
