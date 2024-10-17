@@ -132,7 +132,7 @@ public class TransactionsController : ControllerBase
     {
         var isSuccess = await _transactionsFacade.UpdateBankAccountAsync(bankAccount);
         if (!isSuccess)
-            return NotFound();
+            return BadRequest();
         return Ok();
     }
 
