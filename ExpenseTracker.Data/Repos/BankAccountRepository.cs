@@ -80,7 +80,7 @@ public class BankAccountRepository : IBankAccountRepository
     public async Task<bool> DeleteExpenseFromHistoryAsync(Guid id, Guid bankAccountId)
     {
         var account = _context.BankAccounts.FirstOrDefault(b => b.Id == bankAccountId);
-        var income = _context.Incomes.FirstOrDefault(i => i.Id == id);
+        var income = _context.Expenses.FirstOrDefault(i => i.Id == id);
         if (account == null || income == null) return false;
         
         account.Balance += income.Sum;
