@@ -53,7 +53,7 @@ public class TransactionsFacade : ITransactionsFacade
     
     public async Task<Guid> AddExpenseThenAddToHistoryAsync(Guid bankAccountId, Expense expense)
     {
-        var expenseId = await _expenseService.CreateExpenseAsync(expense);
+        var expenseId = await _expenseService.CreateExpenseAsync(expense, bankAccountId);
         if (expenseId.Equals(Guid.Empty))
             return Guid.Empty;
         

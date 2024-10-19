@@ -61,7 +61,8 @@ public class TransactionsController : ControllerBase
     {
         var incomeId = await _transactionsFacade.AddIncomeThenAddToHistoryAsync(bankAccountId, income);
         if (incomeId.Equals(Guid.Empty))
-            return NotFound();
+            return BadRequest();
+        
         return Created(nameof(GetIncomeById), incomeId);
     }
     
@@ -69,7 +70,10 @@ public class TransactionsController : ControllerBase
     public async Task<ActionResult<Guid>> AddExpense([FromRoute]Guid bankAccountId, [FromBody]Expense expense)
     {
         var expenseId = await _transactionsFacade.AddExpenseThenAddToHistoryAsync(bankAccountId, expense);
-        return expenseId.Equals(Guid.Empty) ? NotFound() : Created(nameof(GetExpenseById), expenseId);
+        if (expenseId.Equals(Guid.Empty))
+            return BadRequest();
+        
+        return Created(nameof(GetIncomeById), expenseId);
     }
 
     #endregion

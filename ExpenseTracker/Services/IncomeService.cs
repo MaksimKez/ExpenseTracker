@@ -29,6 +29,7 @@ public class IncomeService : IIncomeService
         {
             return Guid.Empty;
         }
+        
         income.Id = Guid.NewGuid();
         var entity = _mapper.MapToEntity(income);
         entity.BankAccountId = bankAccountId;

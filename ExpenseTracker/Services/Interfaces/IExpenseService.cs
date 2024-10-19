@@ -12,7 +12,7 @@ namespace ExpenseTracker.Services.Interfaces
         /// </summary>
         /// <param name="expense">The expense to create.</param>
         /// <returns>The id of the newly created expense.</returns>
-        Task<Guid> CreateExpenseAsync(Expense expense);
+        Task<Guid> CreateExpenseAsync(Expense expense, Guid bankAccountId);
 
         /// <summary>
         /// Deletes an expense.

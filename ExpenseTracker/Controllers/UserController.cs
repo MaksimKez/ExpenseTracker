@@ -1,15 +1,9 @@
 using ExpenseTracker.Models;
+using ExpenseTracker.Models.dtos;
 using ExpenseTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseTracker.Controllers;
-
-public class RegisterUserDto
-{
-    public string Username { get; set; }
-    public string Password { get; set; }
-    public Guid BankAccountId { get; set; }
-}
 
 public class UserController : ControllerBase
 {
@@ -30,10 +24,10 @@ public class UserController : ControllerBase
         return CreatedAtAction(nameof(GetUserById), new { id }, id);
     }
 
-    [HttpGet("login/user")]
-    public ActionResult<Guid> Login([FromBody] string username,[FromBody] string password)
+    [HttpPost("login/user")]
+    public ActionResult<Guid> Login([FromBody] LoginUserDto loginUserDto)
     {
-        var accountId = _userService.Login(username, password);
+        var accountId = _userService.Login(loginUserDto.Username , loginUserDto.Password);
         if (accountId.Equals(Guid.Empty))
             return BadRequest();
         
