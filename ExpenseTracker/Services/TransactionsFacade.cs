@@ -42,7 +42,7 @@ public class TransactionsFacade : ITransactionsFacade
     
     public async Task<Guid> AddIncomeThenAddToHistoryAsync(Guid bankAccountId, Income income)
     {
-        var incomeId = await _incomeService.CreateIncomeAsync(income);
+        var incomeId = await _incomeService.CreateIncomeAsync(income, bankAccountId);
         if (incomeId.Equals(Guid.Empty))
             return Guid.Empty;
         
@@ -53,7 +53,7 @@ public class TransactionsFacade : ITransactionsFacade
     
     public async Task<Guid> AddExpenseThenAddToHistoryAsync(Guid bankAccountId, Expense expense)
     {
-        var expenseId = await _expenseService.CreateExpenseAsync(expense);
+        var expenseId = await _expenseService.CreateExpenseAsync(expense, bankAccountId);
         if (expenseId.Equals(Guid.Empty))
             return Guid.Empty;
         

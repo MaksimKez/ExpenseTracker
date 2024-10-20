@@ -26,6 +26,6 @@ public class IncomeConfiguration : IEntityTypeConfiguration<IncomeEntity>
         builder.HasOne<BankAccountEntity>()
             .WithMany(b => b.Incomes)
             .HasForeignKey(i => i.BankAccountId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

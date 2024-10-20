@@ -21,11 +21,11 @@ public class ExpenseService : IExpenseService
     private bool IsValidExpense(Expense? expense)
     {
         if (expense == null) return false;
-        return expense.Sum > 0 && expense.Title.Equals(string.Empty);
+        return expense.Sum > 0 && !expense.Title.Equals(string.Empty);
     }
 
     
-    public async Task<Guid> CreateExpenseAsync(Expense expense)
+    public async Task<Guid> CreateExpenseAsync(Expense expense, Guid bankAccountId)
     {
         if (!IsValidExpense(expense))
         {
@@ -34,6 +34,7 @@ public class ExpenseService : IExpenseService
 
         expense.Id = Guid.NewGuid();
         var entity = _mapper.MapToEntity(expense);
+        entity.BankAccountId = bankAccountId;
         var id = await _repository.CreateAsync(entity);
         return id;
     }

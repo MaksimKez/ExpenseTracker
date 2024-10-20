@@ -23,14 +23,16 @@ public class IncomeService : IIncomeService
         return income.Sum > 0 && !string.IsNullOrEmpty(income.Title);
     }
 
-    public async Task<Guid> CreateIncomeAsync(Income income)
+    public async Task<Guid> CreateIncomeAsync(Income income, Guid bankAccountId)
     {
         if (!IsValidIncome(income))
         {
             return Guid.Empty;
         }
+        
         income.Id = Guid.NewGuid();
         var entity = _mapper.MapToEntity(income);
+        entity.BankAccountId = bankAccountId;
         var id = await _repository.CreateAsync(entity);
         return id;
     }

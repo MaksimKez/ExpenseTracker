@@ -1,4 +1,5 @@
 using ExpenseTracker.Models;
+using ExpenseTracker.Models.dtos;
 using ExpenseTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,19 +15,19 @@ public class UserController : ControllerBase
     }
     
     [HttpPost("register/user")]
-    public async Task<ActionResult<Guid>> RegisterUserAsync([FromBody]string username, [FromBody] string password)
+    public async Task<ActionResult<Guid>> RegisterUserAsync([FromBody] RegisterUserDto registerUserDto)
     {
-        var id = await _userService.RegisterUserAsync(username, password);
+        var id = await _userService.RegisterUserAsync(registerUserDto.Username, registerUserDto.Password, registerUserDto.BankAccountId);
         if (id.Equals(Guid.Empty))
             return BadRequest();
-        
-        return Created(nameof(GetUserById), id);
+    
+        return CreatedAtAction(nameof(GetUserById), new { id }, id);
     }
 
-    [HttpGet("login/user")]
-    public ActionResult<Guid> Login([FromBody] string username,[FromBody] string password)
+    [HttpPost("login/user")]
+    public ActionResult<Guid> Login([FromBody] LoginUserDto loginUserDto)
     {
-        var accountId = _userService.Login(username, password);
+        var accountId = _userService.Login(loginUserDto.Username , loginUserDto.Password);
         if (accountId.Equals(Guid.Empty))
             return BadRequest();
         

@@ -18,14 +18,14 @@ public class UserService : IUserService
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public async Task<Guid> RegisterUserAsync(string username, string password)
+    public async Task<Guid> RegisterUserAsync(string username, string password, Guid bankAccountId)
     {
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || !Regex.IsMatch(username, "^[a-zA-Z0-9]+$"))
         {
             return Guid.Empty;
         }
         
-        return await _repository.RegisterAsync(username, password);
+        return await _repository.RegisterAsync(username, password, bankAccountId);
     }
     
     public Guid Login(string username, string password)

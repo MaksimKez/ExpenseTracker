@@ -61,7 +61,8 @@ public class TransactionsController : ControllerBase
     {
         var incomeId = await _transactionsFacade.AddIncomeThenAddToHistoryAsync(bankAccountId, income);
         if (incomeId.Equals(Guid.Empty))
-            return NotFound();
+            return BadRequest();
+        
         return Created(nameof(GetIncomeById), incomeId);
     }
     
@@ -69,7 +70,10 @@ public class TransactionsController : ControllerBase
     public async Task<ActionResult<Guid>> AddExpense([FromRoute]Guid bankAccountId, [FromBody]Expense expense)
     {
         var expenseId = await _transactionsFacade.AddExpenseThenAddToHistoryAsync(bankAccountId, expense);
-        return expenseId.Equals(Guid.Empty) ? NotFound() : Created(nameof(GetExpenseById), expenseId);
+        if (expenseId.Equals(Guid.Empty))
+            return BadRequest();
+        
+        return Created(nameof(GetIncomeById), expenseId);
     }
 
     #endregion
@@ -102,9 +106,13 @@ public class TransactionsController : ControllerBase
     #region CRUD on BankAccount
 
     [HttpPost("create/bankaccount")]
-    public async Task<ActionResult<Guid>> CreateBankAccount([FromBody]BankAccount bankAccount)
+    public async Task<ActionResult<Guid>> CreateBankAccount()
     {
-        var bankAccountId = await _transactionsFacade.CreateBankAccountAsync(bankAccount);
+        var bankAccountId = await _transactionsFacade.CreateBankAccountAsync(new BankAccount
+        {
+            Balance = 0,
+            Id = Guid.NewGuid()
+        });
         return bankAccountId.Equals(Guid.Empty) ? NotFound() : Created(nameof(GetBankAccountById), bankAccountId);
     }
 
@@ -132,7 +140,7 @@ public class TransactionsController : ControllerBase
     {
         var isSuccess = await _transactionsFacade.UpdateBankAccountAsync(bankAccount);
         if (!isSuccess)
-            return NotFound();
+            return BadRequest();
         return Ok();
     }
 

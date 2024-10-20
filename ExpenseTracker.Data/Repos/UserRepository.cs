@@ -19,13 +19,14 @@ public class UserRepository : IUserRepository
     /// <param name="username">The username of the user to register.</param>
     /// <param name="password">The password of the user to register.</param>
     /// <returns>A task representing the asynchronous operation, returning the id of the newly created user.</returns>
-    public async Task<Guid> RegisterAsync(string username, string password)
+    public async Task<Guid> RegisterAsync(string username, string password, Guid bankAccountId)
     {
         var userEntity = new UserEntity
         {
             Id = Guid.NewGuid(),
             Username = username,
-            Password = password
+            Password = password,
+            BankAccountId = bankAccountId
         };
         await _context.Users.AddAsync(userEntity);
         await _context.SaveChangesAsync();
